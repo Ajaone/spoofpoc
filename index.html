@@ -3,28 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Spoofing PoC</title>
+    <title>Persistent Pop-up PoC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f1f1f1;
+        }
+        .popup {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .popup button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
     <script>
-        // Fungsi untuk mengubah URL di address bar tanpa mengubah konten
-        function spoofURL() {
-            // Ganti URL di address bar dengan URL yang diinginkan
-            history.replaceState(null, "", "https://google.com");
+        // Fungsi untuk membuat pop-up baru saat pop-up ditutup
+        function createPopup() {
+            const popup = window.open("", "Popup", "width=300,height=200");
+            popup.document.write(`
+                <html>
+                <head>
+                    <title>Popup</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 20px;
+                            background-color: white;
+                        }
+                        button {
+                            padding: 10px 20px;
+                            background-color: #007bff;
+                            color: white;
+                            border: none;
+                            border-radius: 3px;
+                            cursor: pointer;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2>Persistent Pop-up</h2>
+                    <p>This pop-up will keep reappearing!</p>
+                    <button onclick="window.close()">Close</button>
+                </body>
+                </html>
+            `);
 
-            // Tampilkan konten yang berbeda
-            document.getElementById("content").innerHTML = `
-                <h1>Welcome to Fake Site</h1>
-                <p>This is a simulated phishing page.</p>
-                <p>You think you're on Google, but you're actually on a fake site.</p>
-            `;
+            // Saat pop-up ditutup, buka pop-up baru
+            popup.onbeforeunload = function() {
+                createPopup();
+            };
         }
 
-        // Jalankan fungsi spoofURL saat halaman dimuat
-        window.onload = spoofURL;
+        // Jalankan fungsi createPopup saat halaman dimuat
+        window.onload = createPopup;
     </script>
 </head>
 <body>
-    <div id="content">
-        <!-- Konten asli akan diganti oleh JavaScript -->
+    <div class="popup">
+        <h2>Main Page</h2>
+        <p>This is the main page. A persistent pop-up will appear.</p>
     </div>
 </body>
 </html>
