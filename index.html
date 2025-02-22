@@ -3,83 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Persistent Pop-up PoC</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f1f1f1;
-        }
-        .popup {
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
-        .popup button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Alert Pop-up PoC</title>
     <script>
-        // Fungsi untuk membuat pop-up baru saat pop-up ditutup
-        function createPopup() {
-            const popup = window.open("", "Popup", "width=300,height=200");
-            popup.document.write(`
-                <html>
-                <head>
-                    <title>Popup</title>
-                    <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            margin: 0;
-                            padding: 20px;
-                            background-color: white;
-                        }
-                        button {
-                            padding: 10px 20px;
-                            background-color: #007bff;
-                            color: white;
-                            border: none;
-                            border-radius: 3px;
-                            cursor: pointer;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <h2>Persistent Pop-up</h2>
-                    <p>This pop-up will keep reappearing!</p>
-                    <button onclick="window.close()">Close</button>
-                </body>
-                </html>
-            `);
-
-            // Saat pop-up ditutup, buka pop-up baru
-            popup.onbeforeunload = function() {
-                createPopup();
-            };
+        // Fungsi untuk menampilkan alert saat halaman dimuat
+        function showAlert() {
+            alert("This is a persistent alert pop-up!");
         }
 
-        // Jalankan fungsi createPopup saat halaman dimuat
-        window.onload = createPopup;
+        // Jalankan fungsi showAlert saat halaman dimuat
+        window.onload = showAlert;
     </script>
 </head>
 <body>
-    <div class="popup">
-        <h2>Main Page</h2>
-        <p>This is the main page. A persistent pop-up will appear.</p>
-    </div>
+    <h1>Alert Pop-up Example</h1>
+    <p>This page demonstrates a persistent alert pop-up.</p>
 </body>
 </html>
